@@ -6,12 +6,15 @@
     <title>Expense Analysis Dashboard</title>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <style>
-        /* Dark Pinterest-like Theme with Animations */
+        /* Pinterest-like Theme */
         :root {
             --bg-primary: #121212;
             --bg-secondary: #1e1e1e;
             --text-primary: #e0e0e0;
             --accent-color: #bb86fc;
+            --card-padding: 10px;
+            --card-margin: 10px;
+            --card-border-radius: 16px;
         }
 
         * {
@@ -45,45 +48,44 @@
 
         .masonry-grid {
             column-count: 3;
-            column-gap: 20px;
+            column-gap: var(--card-margin);
+            margin: var(--card-margin);
         }
 
         .plot-card {
             background-color: var(--bg-secondary);
-            margin-bottom: 20px;
-            break-inside: avoid;
-            border-radius: 12px;
+            margin-bottom: var(--card-margin);
+            border-radius: var(--card-border-radius);
             overflow: hidden;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
             cursor: pointer;
-            transform: scale(1);
-            transition: all 0.3s ease;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            padding: var(--card-padding);
         }
 
         .plot-card:hover {
-            transform: scale(1.03);
-            box-shadow: 0 8px 15px rgba(187, 134, 252, 0.2);
+            transform: scale(1.02);
+            box-shadow: 0 6px 12px rgba(187, 134, 252, 0.3);
         }
 
         .plot-title {
             color: var(--accent-color);
-            text-align: center;
-            padding: 15px;
-            margin: 0;
-            background-color: #2c2c2c;
-            transition: background-color 0.3s ease;
+            text-align: left;
+            padding: 5px 0;
+            margin: 0 0 5px 0;
+            background-color: transparent;
         }
 
         .plot-card:hover .plot-title {
-            background-color: var(--accent-color);
-            color: var(--bg-primary);
+            color: var(--text-primary);
         }
 
         .plot-image {
             width: 100%;
             height: auto;
             display: block;
-            transition: transform 0.3s ease;
+            border-radius: calc(var(--card-border-radius) - 2px);
+            margin-bottom: 0;
         }
 
         @media (max-width: 1200px) {
@@ -114,7 +116,9 @@
         <h1 class="dashboard-title">Expense Analysis Dashboard</h1>
         <div class="masonry-grid">
             {% for title, (plot_id, plot_url) in plots.items() %}
-            <div class="plot-card" onclick="window.location.href='/graph/{{ plot_id }}'" 
+            <div class="plot-card" 
+                 data-plot-id="{{ plot_id }}"
+                 data-plot-url="{{ plot_url }}"  
                  data-aos="fade-up" 
                  data-aos-duration="500"
                  data-aos-easing="ease-in-out">
@@ -128,6 +132,19 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         AOS.init();
+
+        const plotCards = document.querySelectorAll('.plot-card');
+
+        plotCards.forEach(card => {
+            card.addEventListener('click', (event) => {
+                event.preventDefault();
+
+                const plotId = card.dataset.plotId;
+
+                window.location.href = `/graph/${plotId}`;
+
+            });
+        });
     </script>
 </body>
 </html>

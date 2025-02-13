@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }} - Expense Analysis</title>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">  <style>
+        :root {
+            --bg-primary: #121212;
+            --bg-secondary: #1e1e1e;
+            --text-primary: #e0e0e0;
+            --accent-color: #bb86fc; /* Or a more vibrant color like #673ab7 */
+            --box-shadow-color: rgba(0, 0, 0, 0.3);
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            font-family: 'Poppins', sans-serif; /* Use Poppins font */
+            margin: 0; /* Remove default margin */
+            overflow-x: hidden; /* Prevent horizontal scroll on some mobile devices */
+        }
+
+        .container {
+            flex: 1;
+            width: 90%; /* Slightly narrower container */
+            max-width: 1000px;
+            margin: 20px auto;
+            padding: 20px; /* Add some padding */
+            border-radius: 12px; /* Rounded corners for the container */
+            background-color: var(--bg-secondary); /* Darker background for contrast */
+            box-shadow: 0 8px 16px var(--box-shadow-color); /* More pronounced shadow */
+        }
+
+        .graph-details {
+            text-align: center;
+            padding: 30px; /* Increased padding */
+        }
+
+        .graph-details h1 {
+            color: var(--accent-color);
+            margin-bottom: 15px;
+            font-size: 2.5rem; /* Larger title */
+            font-weight: 700; /* Bold title */
+        }
+
+        .graph-details p {
+            color: var(--text-primary);
+            margin-bottom: 25px;
+            line-height: 1.6; /* Improved readability */
+        }
+
+        .graph-image {
+            width: 90%; /* Slightly larger image */
+            max-width: 900px;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+            border-radius: 16px;
+            box-shadow: 0 6px 12px var(--box-shadow-color); /* Softer shadow */
+            transition: transform 0.3s ease, box-shadow 0.3s ease; /* Add transition for hover effect */
+        }
+
+        .graph-image:hover {
+            transform: scale(1.02); /* Slight zoom on hover */
+            box-shadow: 0 8px 16px var(--box-shadow-color); /* More prominent shadow on hover */
+        }
+
+        .back-button {
+            display: inline-block; /* Make it a block element */
+            margin-top: 30px;
+            padding: 12px 25px;
+            background-color: var(--accent-color);
+            color: var(--bg-primary);
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 700;
+            transition: background-color 0.3s ease, transform 0.2s ease; /* Add transform transition */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Add a subtle shadow */
+        }
+
+        .back-button:hover {
+            background-color: #9966cc;
+            transform: translateY(-2px); /* Move slightly up on hover */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); /* Darker shadow on hover */
+        }
+    </style>
+</head>
+<body>
+    <div class="container" data-aos="fade-up" data-aos-duration="800">  <div class="graph-details">
+            <h1>{{ title }}</h1>
+            <p>{{ description }}</p>
+            <img src="{{ plot_url }}" alt="{{ title }}" class="graph-image" data-aos="zoom-in" data-aos-delay="200"> <a href="/" class="back-button">Back to Dashboard</a>
+        </div>
+    </div>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init(); // Initialize AOS
+    </script>
+</body>
+</html>
